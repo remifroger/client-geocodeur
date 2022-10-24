@@ -1,0 +1,80 @@
+#myModal.modal
+  .modal-content
+    span.close &times;
+    #tailing.text-muted.mt-5(style="font-size: 14px;") Démarrage du géocodage
+    button#kill.btn.btn-outline-dark.mt-5 Stopper le géocodage
+.jumbotron.img-geo(style="height: 400px;")
+  .container
+    .row 
+      .col
+.jumbotron.text-black(style="background-color: white;")
+  .container
+    .row
+      .col-lg-12.px-4.py-1
+        .title Configuration
+        form(action="api/uploadCsv" enctype="multipart/form-data" method="POST")
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="input") Chemin du fichier d'entrée
+            .col-lg-9
+              input(type="file" name="file" id="file" required) 
+              <br>
+              input.mt-3(type="submit" value="Enregistrer")
+        form.form.mt-5(action="api/startGeocoding" method="GET")
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label Services de géocodage
+            .col-lg-9
+              .form-check.form-check-inline
+                input#serviceInterne.form-check-input(type='checkbox' value='interne' name="service" checked)
+                label.form-check-label(for='serviceInterne') Interne
+              .form-check.form-check-inline
+                input#serviceEsri.form-check-input(type='checkbox' value='esri' name="service")
+                label.form-check-label(for='serviceEsri') Esri
+              .form-check.form-check-inline
+                input#serviceBan.form-check-input(type='checkbox' value='ban' name="service")
+                label.form-check-label(for='serviceBan') BAN
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="apiKey") Clé API Esri
+            .col-lg-9
+              input.form-control#apiKey(value="" name="apikey" required)
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="esriMax") Limite Esri
+            .col-lg-9
+              input.form-control#esriMax(value="400" name="esrimax" required)
+          .title(style="font-size: 20px;").mb-3 Fichier à géocoder
+          hr
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="colId") Colonne de l'identifiant unique
+            .col-lg-9
+              input.form-control#colId(value="id_adr" name="colid" required) 
+              small.form-text.text-muted Le libellé de la colonne ne doit pas excéder 10 caractères
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="colAdr") Colonne de l'adresse
+            .col-lg-9
+              input.form-control#colAdr(value="adresse" name="coladr" required) 
+              small.form-text.text-muted Le libellé de la colonne ne doit pas excéder 10 caractères
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="colPostal") Colonne du code postal
+            .col-lg-9
+              input.form-control#colPostal(value="c_postal" name="colpostal" required) 
+              small.form-text.text-muted Le libellé de la colonne ne doit pas excéder 10 caractères
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="colCom") Colonne du nom de commune
+            .col-lg-9
+              input.form-control#colCom(value="com" name="colcom" required) 
+              small.form-text.text-muted Le libellé de la colonne ne doit pas excéder 10 caractères
+          .form-group.border-bottom-0.mb-0.row
+            .col-lg-3
+              label(for="colPays") Colonne du pays
+            .col-lg-9
+              input.form-control#colPays(value="pays" name="colpays" required) 
+              small.form-text.text-muted Le libellé de la colonne ne doit pas excéder 10 caractères
+          button#tail.btn.btn-outline-dark.mt-5(style="padding: 10px 20px 10px 20px !important;" type="submit") Lancer le géocodage    
+      
