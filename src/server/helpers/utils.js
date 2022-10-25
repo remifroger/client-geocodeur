@@ -3,7 +3,6 @@ const io = new Server()
 
 var Socket = {
     emit: function (event, data) {
-        console.log(event, data)
         io.sockets.emit(event, data)
     }
 }

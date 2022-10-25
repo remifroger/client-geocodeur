@@ -19,8 +19,9 @@ else {
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
-const { io } = require('./helpers/utils.js')
-io.attach(server)
+//const { io } = require('./helpers/utils.js')
+const io = require('socket.io')(server)
+//io.attach(server)
 const { spawn } = require('child_process')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -49,7 +50,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false }))
 app.use(cookieParser())
 app.use(cors())
-
+app.use((req, res, next) => {
+    req.io = io
+    res.io = io
+    next()
+})
 app.use(session({
     secret: process.env.SESSION,
     resave: false,
