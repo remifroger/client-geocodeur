@@ -19,8 +19,10 @@
             .col-lg-9
               input(type="file" name="file" id="file" required) 
               <br>
-              input.mt-3(type="submit" value="Enregistrer")
+              input#uploadFileForm.mt-3(type="submit" value="Enregistrer")
               #uploadInfo
+              div.progress.mt-3
+                #uploadProgress.progress-bar.progress-bar-striped.bg-success(role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100")
         form.form.mt-5(action="api/startGeocoding" method="GET")
           .form-group.border-bottom-0.mb-0.row
             .col-lg-3

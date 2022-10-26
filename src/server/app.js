@@ -19,10 +19,6 @@ else {
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
-//const { io } = require('./helpers/utils.js')
-const io = require('socket.io')(server)
-//io.attach(server)
-const { spawn } = require('child_process')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const flash = require('express-flash')
@@ -33,11 +29,9 @@ const { pool } = require('./db/connect.js')
 const { handleError, ErrorHandler } = require('./helpers/error')
 const apiRoutes = require('./routes/api/apiRoutes.js')
 const mainRoutes = require('./routes/app/mainRoutes.js')
-
 const initializePassport = require("./helpers/passport")
 const { application } = require('express')
 initializePassport(passport)
-
 require('./helpers/passport')(passport, pool)
 
 const PORT = process.env.PORT
@@ -50,21 +44,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false }))
 app.use(cookieParser())
 app.use(cors())
-app.use((req, res, next) => {
-    req.io = io
-    res.io = io
-    next()
-})
+
 app.use(session({
     secret: process.env.SESSION,
     resave: false,
     saveUninitialized: false
 }))
-
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-
 app.use('/', mainRoutes)
 app.use('/api', apiRoutes)
 
@@ -77,3 +65,6 @@ app.use((err, req, res, next) => {
 })
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+
+const io = require('socket.io')(server)
+app.set('socketio', io)

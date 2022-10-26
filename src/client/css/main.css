@@ -757,7 +757,7 @@ button.easy:hover {
 	margin-bottom: 7px;
 }
 .img-geo {
-	background-image: linear-gradient(to bottom, white, transparent), url("../img/hiparco.jpg");
+	background-image: linear-gradient(to bottom, black, transparent), url("../img/hiparco.jpg");
 	background-size: cover;
     background-position: center;
 }
