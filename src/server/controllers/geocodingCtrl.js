@@ -48,6 +48,9 @@ const Geocoding = {
         )
         io.on('killProcess', (data) => {
             child.kill('SIGINT')
+            io.emit('killing', {
+                info: 'Fin de la procédure demandée par l\'utilisateur'
+            })
         })
         child.stdin.on('data', (data) => {
             io.emit("eventGeocStdin", {

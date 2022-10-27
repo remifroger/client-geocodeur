@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-select'
 import 'bootstrap-select/dist/css/bootstrap-select.min.css'
 import '../css/main.css'
-//const io = require('socket.io-client')
 
 $(function () {
     const modal = document.getElementById("myModal")
@@ -61,16 +60,17 @@ $(function () {
             consoleMsg.insertAdjacentHTML('beforeend', '<br/><a href="/api/download/geocodage_erreurs_restantes.csv" class="btn btn-outline-light mt-2" type="button">Télécharger les erreurs</a>')
         
         })
+        socket.on('killing', (data) => {
+            document.getElementById("tailing").insertAdjacentHTML('beforeend', data.info)
+        })
     }
     document.getElementById('tail').addEventListener('submit', getConsoleGeocoding())
-    const getKillProcess = () => {
+    document.getElementById('kill').addEventListener('click', () => {
         const socket = io.connect("http://localhost:3000")
         socket.emit('killProcess', {
             info: "Fin de la procédure demandée par l'utilisateur"
         })
-        document.getElementById("tailing").insertAdjacentHTML('beforeend', "<br/>Fin de la procédure demandée par l'utilisateur")
-    }
-    document.getElementById('kill').addEventListener('click', getKillProcess())
+    })
     // Rechargement à chaud, seulement en environnement de développement
     if (module.hot) {
         module.hot.accept(function () {
