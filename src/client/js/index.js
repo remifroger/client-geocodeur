@@ -30,6 +30,7 @@ $(function () {
             }
         })
         socket.on("uploaded", (data) => {
+            document.getElementById("uploadInfo").innerHTML = ''
             document.getElementById("uploadInfo").insertAdjacentHTML('beforeend', '<div class="alert alert-success alert-dismissible fade show text-muted mt-3" role="alert">' + data.msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
         })
     }
@@ -60,9 +61,6 @@ $(function () {
             consoleMsg.insertAdjacentHTML('beforeend', '<br/><a href="/api/download/geocodage_erreurs_restantes.csv" class="btn btn-outline-light mt-2" type="button">Télécharger les erreurs</a>')
         
         })
-        socket.on('killing', (data) => {
-            document.getElementById("tailing").insertAdjacentHTML('beforeend', data.info)
-        })
     }
     document.getElementById('tail').addEventListener('submit', getConsoleGeocoding())
     document.getElementById('kill').addEventListener('click', () => {
@@ -70,6 +68,7 @@ $(function () {
         socket.emit('killProcess', {
             info: "Fin de la procédure demandée par l'utilisateur"
         })
+        document.getElementById("tailing").insertAdjacentHTML('beforeend', '<br/>Fin de la procédure demandée par l\'utilisateur')
     })
     // Rechargement à chaud, seulement en environnement de développement
     if (module.hot) {
